@@ -2,8 +2,6 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import numpy as np
 
-x = np.arange(10)
-
 
 def loss_hist(loss_hist_epoch):
     fig = go.Figure(
@@ -20,6 +18,8 @@ def loss_hist(loss_hist_epoch):
         title='Log Loss / Epoch',
         xaxis_title='Epoch',
         yaxis_title='Log Loss',
+        # plot_bgcolor="rgba(0, 0, 0, 0)",
+        paper_bgcolor="rgba(0, 0, 0, 0)",
     )
 
-    return pio.to_image(fig, format='svg')
+    return pio.to_image(fig, format="png")

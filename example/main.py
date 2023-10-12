@@ -3,6 +3,10 @@ import requests
 with open("mushrooms.csv", "rb") as csv:
     data = csv.read()
 
+headers = {
+    "Content-Type": "application/json",
+}
+
 ARGS = {
     "epochs": 100,
     "hidden_size": 8,
@@ -24,19 +28,24 @@ ARGS = {
     "data": data.decode("utf-8"),
 }
 
+
 if __name__ == "__main__":
     r = requests.post(
         "http://127.0.0.1:4000/neural-network",
         json=ARGS,  # Send the data as a JSON object
+        headers=headers,
     )
 
     # now send the results to the plot api
     nn_results = r.json()
+    plot_args = nn_results | ARGS
     r = requests.post(
         "http://127.0.0.1:3000/neural-network",
-        json=nn_results,
+        json=plot_args,
+        headers=headers,
     )
 
-    # display results
+    print(r.content)
+
     with open("plot.png", "wb") as f:
         f.write(r.content)
