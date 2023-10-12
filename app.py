@@ -1,9 +1,7 @@
-from flask import Flask, request, Response, jsonify
+from flask import Flask, request, Response
 from flask_cors import CORS
 
-import pandas as pd
-
-from plot.loss_hist import loss_hist
+from plot.plot import plot
 
 app = Flask(__name__)
 
@@ -14,11 +12,12 @@ CORS(app, origins="*")
 def nn_plot():
     data = request.json
     try:
-        loss_hist_epoch = loss_hist(
+        data_vis = plot(
             loss_hist_epoch=data["loss_hist"],
+            accuracy_scores=data["accuracy_scores"],
         )
         return Response(
-            loss_hist_epoch,
+            data_vis,
             status=200,
             content_type="image/svg",
         )

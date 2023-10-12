@@ -9,10 +9,10 @@ headers = {
 
 ARGS = {
     "epochs": 100,
-    "hidden_size": 8,
-    "learning_rate": 0.0001,
-    "test_size": 0.1,
-    "activation": "relu",
+    "hidden_size": 12,
+    "learning_rate": 0.01,
+    "test_size": 0.2,
+    "activation": "sigmoid",
     "features": [
         "cap-shape",
         "cap-surface",
@@ -47,5 +47,5 @@ if __name__ == "__main__":
 
     print(r.content)
 
-    with open("plot.png", "wb") as f:
+    with open("plot.svg", "wb") as f:
         f.write(r.content)
