@@ -38,14 +38,12 @@ if __name__ == "__main__":
 
     # now send the results to the plot api
     nn_results = r.json()
-    plot_args = nn_results | ARGS
+    plot_args = nn_results
     r = requests.post(
         "http://127.0.0.1:3000/neural-network",
         json=plot_args,
         headers=headers,
     )
-
-    print(r.content)
 
     with open("plot.svg", "wb") as f:
         f.write(r.content)
