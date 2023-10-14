@@ -12,17 +12,9 @@ ARGS = {
     "hidden_size": 12,
     "learning_rate": 0.01,
     "test_size": 0.2,
-    "activation": "sigmoid",
+    "activation": "tanh",
     "features": [
-        "cap-shape",
-        "cap-surface",
-        "cap-color",
         "bruises",
-        "odor",
-        "gill-attachment",
-        "gill-spacing",
-        "gill-size",
-        "gill-color",
     ],
     "target": "class",
     "data": data.decode("utf-8"),
@@ -31,16 +23,19 @@ ARGS = {
 
 if __name__ == "__main__":
     r = requests.post(
-        "http://127.0.0.1:4000/neural-network",
+        "https://ml-from-scratch-v2.onrender.com/neural-network",
         json=ARGS,  # Send the data as a JSON object
         headers=headers,
     )
+
+    print(r.status_code)
+    print(r.text)
 
     # now send the results to the plot api
     nn_results = r.json()
     plot_args = nn_results
     r = requests.post(
-        "http://127.0.0.1:3000/neural-network",
+        "https://ml-vis.onrender.com/neural-network",
         json=plot_args,
         headers=headers,
     )
