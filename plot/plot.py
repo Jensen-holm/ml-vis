@@ -38,10 +38,10 @@ def plot(loss_hist_epoch, accuracy_scores):
     # Create frames for animation
     frames = []
     for i in range(len(loss_hist_epoch)):
-        frame1 = go.Frame(data=[go.Scatter(x=np.arange(i+1), y=loss_hist_epoch[:i+1])],
-                          name=f"Frame {i}")
-        frame2 = go.Frame(data=[go.Scatter(x=np.arange(i+1), y=accuracy_scores[:i+1])],
-                          name=f"Frame {i}")
+        frame1 = go.Frame(data=[go.Scatter(x=np.arange(
+            i+1), y=loss_hist_epoch[:i+1])], name=f"Frame {i}")
+        frame2 = go.Frame(data=[go.Scatter(x=np.arange(
+            i+1), y=accuracy_scores[:i+1])], name=f"Frame {i}")
         frames.extend([frame1, frame2])
 
     fig.frames = frames
@@ -49,10 +49,11 @@ def plot(loss_hist_epoch, accuracy_scores):
     # Specify the duration for each frame (in milliseconds)
     frame_duration = 1000  # 1 second per frame
 
-    # Update layout to play animation without user controls
-    fig.update_layout(updatemenu=[], showlegend=False)
-    fig.update(frames=[dict(duration=frame_duration, redraw=True)
-               for _ in frames])
+    # Update layout to play animation
+    fig.layout.updatemodes = ["animate"]
+    fig.layout.sliders = [{
+        "steps": [{"args": [[f.name], {"frame": {"duration": frame_duration, "redraw": True}, "mode": "immediate", "transition": {"duration": 0}}], "label": str(i), "method": "animate"} for i, f in enumerate(frames)],
+    }]
 
     fig.update_layout(
         title_text='Classification Results',
