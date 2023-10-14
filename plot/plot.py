@@ -41,5 +41,8 @@ def plot(loss_hist_epoch, accuracy_scores):
         title_text='Classification Results',
         paper_bgcolor="rgba(0, 0, 0, 0)",
         width=1000,
+        title_font=dict(color="white"),
+        xaxis_title_font=dict(color="white"),
+        yaxis_title_font=dict(color="white"),
     )
     return pio.to_image(fig, format="png")
