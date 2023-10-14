@@ -19,7 +19,7 @@ def nn_plot():
         return Response(
             data_vis,
             status=200,
-            content_type="image/svg",
+            content_type="image/png",
         )
     except Exception as e:
         return Response(f"error plotting loss_hist plot: {e}", status=400)

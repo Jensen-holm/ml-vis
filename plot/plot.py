@@ -42,4 +42,4 @@ def plot(loss_hist_epoch, accuracy_scores):
         paper_bgcolor="rgba(0, 0, 0, 0)",
         width=1000,
     )
-    return pio.to_image(fig, format="svg")
+    return pio.to_image(fig, format="png")
