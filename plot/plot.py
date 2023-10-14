@@ -17,12 +17,10 @@ def plot(loss_hist_epoch, accuracy_scores):
     fig.update_xaxes(tickfont=dict(color="white"))
     fig.update_yaxes(tickfont=dict(color="white"))
 
-# Update subplot titles font color to white
     fig.update_layout(
         title_font=dict(color="white"),
     )
 
-# Create the traces
     trace1 = go.Scatter(
         x=np.arange(len(loss_hist_epoch)),
         y=loss_hist_epoch,
@@ -49,8 +47,5 @@ def plot(loss_hist_epoch, accuracy_scores):
         title_text='Classification Results',
         paper_bgcolor="rgba(0, 0, 0, 0)",
         width=1000,
-        title_font=dict(color="white"),
-        xaxis_title_font=dict(color="white"),
-        yaxis_title_font=dict(color="white"),
     )
     return pio.to_image(fig, format="png")
