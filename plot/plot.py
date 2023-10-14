@@ -13,6 +13,14 @@ def plot(loss_hist_epoch, accuracy_scores):
             "Log Loss / Epoch",
             "Accuracy Score / Epoch",
         ])
+    # Update x-axis and y-axis tick font color to white
+    fig.update_xaxes(tickfont=dict(color="white"))
+    fig.update_yaxes(tickfont=dict(color="white"))
+
+# Update subplot titles font color to white
+    fig.update_layout(
+        title_font=dict(color="white"),
+    )
 
 # Create the traces
     trace1 = go.Scatter(
