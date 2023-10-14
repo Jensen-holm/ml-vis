@@ -50,7 +50,7 @@ def plot(loss_hist_epoch, accuracy_scores):
     frame_duration = 1000  # 1 second per frame
 
     # Update layout to play animation
-    fig.layout.updatemodes = ["animate"]
+    fig.layout.updatemenus = ["animate"]
     fig.layout.sliders = [{
         "steps": [{"args": [[f.name], {"frame": {"duration": frame_duration, "redraw": True}, "mode": "immediate", "transition": {"duration": 0}}], "label": str(i), "method": "animate"} for i, f in enumerate(frames)],
     }]
