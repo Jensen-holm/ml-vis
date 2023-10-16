@@ -14,7 +14,7 @@ def nn_plot():
     try:
         data_vis = plot(
             loss_hist_epoch=data["loss_hist"],
-            accuracy_scores=data["accuracy_scores"],
+            accuracy_score=data["test_accuracy"],
         )
         return Response(
             data_vis,

@@ -1,44 +1,48 @@
-from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import plotly.io as pio
 import numpy as np
 
 
-def plot(loss_hist_epoch, accuracy_scores):
+def plot(loss_hist_epoch, accuracy_score):
 
+    # Create a subplot with 1 row and 2 columns
     fig = make_subplots(
         rows=1,
         cols=2,
-        subplot_titles=[
-            "Log Loss / Epoch",
-            "Accuracy Score / Epoch",
-        ])
+        subplot_titles=["Log Loss / Epoch",
+                        "Accuracy Score on Validation Data"],
+        specs=[[{"type": "xy"}, {"type": "domain"}]],
+    )
 
-    trace1 = go.Scatter(
+    # Create the log loss / epoch plot
+    fig.add_trace(go.Scatter(
         x=np.arange(len(loss_hist_epoch)),
         y=loss_hist_epoch,
         mode="lines",
         name="epoch, log loss",
-        # line_color='rgb(13, 133, 85, 0)',
         showlegend=False,
-    )
+    ), row=1, col=1)
 
-    trace2 = go.Scatter(
-        x=np.arange(len(accuracy_scores)),
-        y=accuracy_scores,
-        mode="lines",
-        name="accuracy scores / epoch",
-        line_color='rgb(199, 42, 47, 0)',
-        showlegend=False,
-    )
-
-    # Add the traces to the subplots
-    fig.add_trace(trace1, row=1, col=1)
-    fig.add_trace(trace2, row=1, col=2)
+    # Create a pie chart for accuracy score
+    fig.add_trace(go.Pie(
+        labels=["Correct", "Incorrect"],
+        values=[accuracy_score, 1 - accuracy_score],
+        showlegend=True,
+        marker=dict(colors=['green', 'red']),
+    ), row=1, col=2)
 
     fig.update_layout(
         title_text='Classification Results',
         paper_bgcolor="rgba(0, 0, 0, 0)",
         width=1000,
     )
+
     return pio.to_image(fig, format="png")
+
+
+# Example usage
+loss_hist_epoch = [0.1, 0.08, 0.06, 0.04, 0.02]
+accuracy_score = 0.85  # Replace with your actual accuracy score
+
+plot(loss_hist_epoch, accuracy_score)
